@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<title>Tools Han7b — Anonymous Red</title>
+<style>
+:root{--bg:#080404;--panel:#180808;--panel2:#240909;--blue:#ff2929;--blue2:#a00000;--text:#fff2f2;--muted:#d1a6a6;--line:#641919;--danger:#ff4545;--good:#ff7777}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(ellipse at 50% -15%,#143b66 0,transparent 55%),var(--bg);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.topbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px max(16px,calc((100vw - 1100px)/2));background:#06101de8;backdrop-filter:blur(14px);border-bottom:1px solid #1d3c59}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.5px}.logo{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--blue);border-radius:12px;color:var(--blue);box-shadow:0 0 20px #31d7ff26;font-size:19px}
+.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px;font-weight:700}.nav{display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--line);background:#10253b;color:var(--text);border-radius:11px;padding:10px 14px;font-weight:750;transition:.2s}.btn:hover{border-color:var(--blue);transform:translateY(-1px)}.btn.primary{background:linear-gradient(120deg,#137fbd,#4269f5);border-color:#50dfff;box-shadow:0 0 22px #31d7ff22}.btn.danger{border-color:#713344;color:#ff9aab;background:#281421}.btn.small{padding:7px 10px;font-size:12px}
+main{max-width:1100px;margin:auto;padding:24px 16px 54px}.hero{position:relative;overflow:hidden;border:1px solid #285578;border-radius:24px;padding:clamp(24px,6vw,54px);background:linear-gradient(115deg,#0b1e34ed,#0b1730d9);box-shadow:0 20px 70px #0003}
+.hero:before,.hero:after{content:"";position:absolute;border:1px solid #31d7ff30;border-radius:50%;width:330px;height:330px;right:-100px;top:-130px;animation:orbit 16s linear infinite}.hero:after{width:230px;height:230px;right:-50px;top:-80px;animation-direction:reverse;border-color:#6687ff50}
+@keyframes orbit{to{transform:rotate(360deg)}}@keyframes pulse{50%{box-shadow:0 0 32px #31d7ff50}}@keyframes float{50%{transform:translateY(-7px)}}
+.eyebrow{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:3px}.hero h1{font-size:clamp(38px,8vw,76px);line-height:.98;letter-spacing:-2px;margin:14px 0}.hero h1 span{color:var(--blue);text-shadow:0 0 25px #31d7ff45}.hero p{max-width:550px;color:var(--muted);line-height:1.7}.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.floating-chip{position:absolute;right:9%;bottom:18%;font-size:clamp(42px,8vw,80px);filter:drop-shadow(0 0 24px #31d7ff70);animation:float 3s ease-in-out infinite}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:30px 0 14px}.section-head h2{margin:0;font-size:22px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.game-card,.panel{background:linear-gradient(150deg,#0d2034,#091726);border:1px solid var(--line);border-radius:18px;padding:17px;min-width:0}.game-art{height:130px;display:grid;place-items:center;border:1px solid #25506f;border-radius:13px;margin-bottom:14px;background:radial-gradient(circle at 50% 45%,#16466d,#0b1728 70%);font-size:54px;position:relative;overflow:hidden}.game-art:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,#ffffff0b 50%,transparent 70%);transform:translateX(-100%);animation:shine 4s infinite}@keyframes shine{to{transform:translateX(100%)}}
+.game-card h3{margin:0 0 6px}.game-card p{color:var(--muted);font-size:13px;line-height:1.5;min-height:40px;margin:0 0 13px}.game-meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.stat{padding:15px;border:1px solid var(--line);border-radius:15px;background:#0b1b2e}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{display:block;font-size:25px;color:var(--blue);margin-top:4px}
+footer{border-top:1px solid #1a334a;color:#7990a6;text-align:center;padding:22px 12px;font-size:12px}
+.modal{position:fixed;inset:0;z-index:20;background:#02070dd9;backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.dialog{width:min(540px,100%);max-height:92vh;overflow:auto;background:#091827;border:1px solid #2b6385;border-radius:20px;padding:20px;box-shadow:0 0 70px #31d7ff1c}.dialog h2{margin:0 0 8px}.dialog p{color:var(--muted);font-size:13px;line-height:1.6}.field{display:grid;gap:6px;margin:13px 0}.field label{font-size:12px;color:#b8cfe1;font-weight:750}.field input{width:100%;border:1px solid #294b67;border-radius:10px;background:#06111d;color:var(--text);padding:12px}.dialog-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.hint{font-size:11px!important;color:#8199ad!important}
+#gameArea{display:none;margin-top:14px}.game-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.playfield{position:relative;overflow:hidden;border:1px solid #24628b;border-radius:15px;background:linear-gradient(#07182b,#0b2742);height:min(52vh,390px);min-height:260px;touch-action:manipulation}.playfield:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#31d7ff0c 1px,transparent 1px),linear-gradient(90deg,#31d7ff0c 1px,transparent 1px);background-size:26px 26px;transform:perspective(220px) rotateX(12deg) scale(1.3);transform-origin:bottom}
+#player{position:absolute;bottom:24px;left:calc(50% - 20px);width:40px;height:40px;display:grid;place-items:center;font-size:29px;filter:drop-shadow(0 0 12px #31d7ff);z-index:2}.obstacle{position:absolute;top:-30px;width:28px;height:28px;border:2px solid #ff7598;background:#ff416c55;border-radius:7px;box-shadow:0 0 15px #ff416c66}.game-hud{display:flex;justify-content:space-between;color:var(--blue);font-weight:850;font-size:13px;margin:10px 0}.game-help{font-size:12px;color:var(--muted)}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.admin-grid .panel{padding:14px}.admin-list{font-size:13px;line-height:1.8;color:#bfd2e1;overflow-wrap:anywhere}
+.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:50;background:#102d43;border:1px solid #31d7ff;padding:12px 16px;border-radius:12px;transition:.25s;max-width:90vw;font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:720px){.cards{grid-template-columns:1fr}.game-card{display:grid;grid-template-columns:90px 1fr;gap:0 13px}.game-art{height:100%;min-height:115px;grid-row:span 4;margin:0}.game-card p{min-height:0}.game-card .btn{align-self:start}.floating-chip{right:7%;bottom:8%;opacity:.65}.nav .hide-mobile{display:none}.stats{gap:7px}.stat{padding:11px}.stat strong{font-size:21px}.admin-grid{grid-template-columns:1fr}.hero{border-radius:18px}}
+
+/* Anonymous red theme */
+body{background:radial-gradient(ellipse at 50% -15%,#650909 0,transparent 55%),var(--bg)}
+.topbar{background:#090303ee;border-bottom-color:#5d1111}.logo{border-color:#ff2929;color:#ff2929;box-shadow:0 0 20px #ff000044}
+.hero{border-color:#7b1717;background:linear-gradient(115deg,#1b0808ed,#100505e8)}
+.hero:before,.hero:after{border-color:#ff292930}.hero:after{border-color:#ff292950}
+.eyebrow,.hero h1 span,.stat strong{color:#ff2929}.hero h1 span{text-shadow:0 0 25px #ff000055}
+.btn.primary{background:linear-gradient(120deg,#8b0000,#ff2929);border-color:#ff4545;box-shadow:0 0 22px #ff000033}
+.game-card,.panel,.stat{background:linear-gradient(150deg,#1c0808,#100505);border-color:#641919}
+.game-art{border-color:#6c1616;background:radial-gradient(circle at 50% 45%,#5b1010,#100505 70%)}
+.playfield{border-color:#7b1717;background:linear-gradient(#170606,#300909)}
+.playfield:before{background-image:linear-gradient(#ff29290c 1px,transparent 1px),linear-gradient(90deg,#ff29290c 1px,transparent 1px)}
+.dialog{background:#140606;border-color:#7b1717}.field input{border-color:#641919;background:#090303}
+.toast{background:#240909;border-color:#ff2929}
+#waTools{margin-top:18px;display:none}.wa-options{display:grid;grid-template-columns:1fr 1fr;gap:9px}.wa-options button{min-height:48px}
+@media(max-width:520px){.wa-options{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">H7</div><div>TOOLS HAN7B<small>ANONYMOUS RED</small></div></div>
+  <nav class="nav"><button class="btn small hide-mobile" onclick="scrollToGames()">GAME</button><button class="btn small" id="loginTop" onclick="openLogin()">LOGIN</button><button class="btn small" id="adminTop" style="display:none" onclick="openAdmin()">ADMIN</button></nav>
+</header>
+<main>
+  <section class="hero">
+    <div class="eyebrow">HAN7B // SYSTEM READY</div>
+    <h1>TOOLS<br><span>HAN7B.</span></h1>
+    <p>Pilih menu yang tersedia. Tampilan merah anonymous dengan panel tools bergaya cyber.</p>
+    <div class="hero-actions"><button class="btn primary" onclick="scrollToGames()">BUKA MENU</button><button class="btn" onclick="openWaTools()">MENU BUG WA</button></div>
+    <div class="floating-chip" aria-hidden="true">✦</div>
+  </section>
+  <section class="stats">
+    <div class="stat"><span>PLAYER</span><strong id="playerName">Guest</strong></div>
+    <div class="stat"><span>HIGH SCORE</span><strong id="highScore">0</strong></div>
+    <div class="stat"><span>GAME DIMAINKAN</span><strong id="played">0</strong></div>
+  </section>
+  <div class="section-head" id="games"><div><h2>Pilih Menu</h2><p>Pilih salah satu dari tiga opsi.</p></div><span class="eyebrow">01 / TOOLS</span></div>
+  <section class="cards">
+    <article class="game-card"><div class="game-art">🚀</div><h3>Neon Dodge</h3><p>Hindari meteor selama mungkin dan kejar skor tertinggi.</p><div class="game-meta"><span>⚡ Refleks</span><span>1 pemain</span></div><button class="btn primary" onclick="startGame()">MAINKAN →</button></article>
+    <article class="game-card"><div class="game-art">💉</div><h3>Inject HanVip</h3><p>Inject Vip Han — bikin lock pala, bisa FF ori / MAX.</p><div class="game-meta"><span>HANVIP</span><span>TOOLS</span></div><button class="btn primary" onclick="openInject()">BUKA INJECT</button></article>
+    <article class="game-card"><div class="game-art">☠️</div><h3>Menu Bug WA</h3><p>Panel menu dengan pilihan mode dan kolom target.</p><div class="game-meta"><span>WA TOOLS</span><span>HAN7B</span></div><button class="btn primary" onclick="openWaTools()">BUKA MENU</button></article>
+  </section>
+  <section id="injectPanel" class="panel" style="display:none;margin-top:18px">
+    <div class="game-top"><div><div class="eyebrow">HANVIP // PANEL</div><h2 style="margin:5px 0">Inject HanVip</h2></div><button class="btn small" onclick="closePanel('injectPanel')">TUTUP ✕</button></div>
+    <p class="game-help">Inject Vip Han bikin lock pala, bisa FF ori / MAX.</p>
+    <button class="btn primary" onclick="toast('Mode HanVip dipilih')">FF ORI</button> <button class="btn primary" onclick="toast('Mode HanVip dipilih')">FF MAX</button>
+  </section>
+  <section id="waTools" class="panel">
+    <div class="game-top"><div><div class="eyebrow">ANONYMOUS // WA</div><h2 style="margin:5px 0">Menu Bug WA</h2></div><button class="btn small" onclick="closePanel('waTools')">TUTUP ✕</button></div>
+    <div class="field"><label for="sender">ADD SENDER</label><input id="sender" maxlength="20" placeholder="Nama sender"></div>
+    <div class="field"><label for="targetNumber">NOMOR TARGET</label><input id="targetNumber" inputmode="tel" maxlength="20" placeholder="Contoh: 08xxxxxxxxxx"></div>
+    <div class="wa-options">
+      <button class="btn" onclick="chooseWaMode('Fc hard by hanung')">Fc hard by hanung</button>
+      <button class="btn" onclick="chooseWaMode('delay invisible by han')">delay invisible by han</button>
+      <button class="btn" onclick="chooseWaMode('ban Gruop')">ban Gruop</button>
+      <button class="btn" onclick="chooseWaMode('frezexhard')">frezexhard</button>
+    </div>
+    <div class="dialog-actions"><button class="btn primary" onclick="runWaPanel()">ADD SENDER</button></div>
+    <p class="hint" id="waStatus" aria-live="polite">Pilih mode dan isi kolom untuk memperbarui panel.</p>
+  </section>
+  <section id="gameArea" class="panel">
+    <div class="game-top"><div><div class="eyebrow">LIVE GAME</div><h2 style="margin:5px 0">Neon Dodge</h2></div><button class="btn small" onclick="closeGame()">TUTUP ✕</button></div>
+    <div class="game-hud"><span>SKOR: <b id="score">0</b></span><span>TERBAIK: <b id="gameBest">0</b></span></div>
+    <div class="playfield" id="playfield" aria-label="Area permainan"><div id="player">🚀</div></div>
+    <div class="game-help" id="gameHelp">Geser jari ke kiri/kanan atau ketuk sisi kiri/kanan area permainan untuk menghindari meteor.</div>
+    <div class="dialog-actions"><button class="btn primary" onclick="beginRun()">▶ MULAI / ULANGI</button><button class="btn" onclick="movePlayer(-1)">← KIRI</button><button class="btn" onclick="movePlayer(1)">KANAN →</button></div>
+  </section>
+  <section id="adminArea" style="display:none;margin-top:30px">
+    <div class="section-head"><div><h2>Dashboard admin</h2><p>Ringkasan lokal di perangkat ini.</p></div><span class="eyebrow">02 / CONTROL</span></div>
+    <div class="admin-grid">
+      <div class="panel"><h3>Statistik</h3><div class="admin-list" id="adminStats"></div><button class="btn small" style="margin-top:10px" onclick="refreshAdmin()">REFRESH</button></div>
+      <div class="panel"><h3>Pengaturan</h3><p class="hint">Data tersimpan di browser perangkat ini. Bukan sistem admin online.</p><button class="btn small danger" onclick="resetStats()">RESET STATISTIK</button><button class="btn small" style="margin:8px 0 0 8px" onclick="exportData()">EKSPOR DATA</button></div>
+    </div>
+  </section>
+</main>
+<footer>© <span id="year"></span> hann 7b · Dibuat untuk bermain dan bersenang-senang.</footer>
+
+<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+ <div class="dialog"><div class="eyebrow">PLAYER ACCESS</div><h2 id="loginTitle">Masuk ke arcade</h2><p>Buat profil lokal agar nama dan skor tersimpan di browser ini.</p>
+  <div class="field"><label for="username">NAMA PEMAIN</label><input id="username" maxlength="20" autocomplete="nickname" placeholder="Contoh: Hann"></div>
+  <div class="field"><label for="password">KATA SANDI (opsional untuk demo)</label><input id="password" type="password" maxlength="64" placeholder="Isi untuk demo login"></div>
+  <div class="dialog-actions"><button class="btn primary" onclick="login()">MASUK / BUAT PROFIL</button><button class="btn" onclick="closeLogin()">BATAL</button></div>
+  <p class="hint">Demo ini tidak memakai server. Jangan gunakan kata sandi asli; data disimpan hanya di browser ini.</p>
+ </div>
+</div>
+<div class="modal" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+ <div class="dialog"><div class="eyebrow">RESTRICTED PANEL</div><h2 id="adminTitle">Login admin</h2><p>Masukkan kode admin demo untuk membuka dashboard lokal.</p>
+  <div class="field"><label for="adminCode">KODE ADMIN</label><input id="adminCode" type="password" placeholder="Kode demo"></div>
+  <div class="dialog-actions"><button class="btn primary" onclick="adminLogin()">BUKA DASHBOARD</button><button class="btn" onclick="closeAdminLogin()">BATAL</button></div>
+  <p class="hint">Kode demo awal: <b>HANN7B-ADMIN</b>. Ini bukan keamanan server; siapa pun yang melihat kode di file dapat membukanya.</p>
+ </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const KEY='hann7b_arcade_v1';
+const ADMIN_CODE='HANN7B-ADMIN';
+let data={user:null,highScore:0,played:0,totalScore:0};
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&typeof saved==='object')data={...data,...saved}}catch(e){}
+let score=0, lane=1, running=false, raf=0, lastSpawn=0, lastTime=0, obstacles=[], gameStartedAt=0, pointerStart=null, toastTimer;
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){toast('Penyimpanan browser tidak tersedia.')} updateUI()}
+function updateUI(){$('playerName').textContent=data.user||'Guest';$('highScore').textContent=data.highScore||0;$('played').textContent=data.played||0;$('loginTop').textContent=data.user?'PROFIL':'LOGIN';$('adminTop').style.display=sessionStorage.getItem('hann7b_admin')==='yes'?'inline-block':'none';$('gameBest').textContent=data.highScore||0}
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2500)}
+function scrollToGames(){$('games').scrollIntoView({behavior:'smooth',block:'start'})}
+function closePanel(id){$(id).style.display='none'}
+function openInject(){$('injectPanel').style.display='block';$('injectPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+let selectedWaMode='';
+function openWaTools(){$('waTools').style.display='block';$('waTools').scrollIntoView({behavior:'smooth',block:'start'})}
+function chooseWaMode(mode){selectedWaMode=mode;$('waStatus').textContent='Mode dipilih: '+mode;toast('Mode dipilih: '+mode)}
+function runWaPanel(){const sender=$('sender').value.trim(),target=$('targetNumber').value.trim();if(!sender||!target){toast('Isi sender dan nomor target terlebih dahulu.');return}if(!/^[+0-9 ()-]{6,20}$/.test(target)){toast('Format nomor belum sesuai.');return}$('waStatus').textContent='Panel disiapkan untuk '+target+(selectedWaMode?' — '+selectedWaMode:'')+'.';toast('Panel diperbarui secara lokal.')} 
+function openLogin(){$('loginModal').classList.add('show');$('username').value=data.user||'';$('password').value='';setTimeout(()=>$('username').focus(),80)}
+function closeLogin(){$('loginModal').classList.remove('show')}
+function login(){const name=$('username').value.trim();if(!name){toast('Masukkan nama pemain dulu.');return}data.user=name;save();closeLogin();toast('Selamat datang, '+name+'!');}
+function openAdmin(){if(sessionStorage.getItem('hann7b_admin')==='yes'){$('adminArea').style.display='block';refreshAdmin();$('adminArea').scrollIntoView({behavior:'smooth'});}else $('adminModal').classList.add('show')}
+function closeAdminLogin(){$('adminModal').classList.remove('show')}
+function adminLogin(){if($('adminCode').value!==ADMIN_CODE){toast('Kode admin salah.');return}sessionStorage.setItem('hann7b_admin','yes');closeAdminLogin();$('adminTop').style.display='inline-block';$('adminArea').style.display='block';refreshAdmin();$('adminArea').scrollIntoView({behavior:'smooth'});toast('Dashboard lokal dibuka.')}
+function refreshAdmin(){$('adminStats').innerHTML='Nama profil: <b>'+escapeHtml(data.user||'Belum dibuat')+'</b><br>Skor tertinggi: <b>'+data.highScore+'</b><br>Game dimainkan: <b>'+data.played+'</b><br>Total skor tercatat: <b>'+data.totalScore+'</b><br>Mode: <b>Offline / lokal</b>'}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function resetStats(){if(!confirm('Reset semua statistik lokal?'))return;data.highScore=0;data.played=0;data.totalScore=0;save();refreshAdmin();toast('Statistik direset.')}
+function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='hann-7b-data.json';a.click();URL.revokeObjectURL(url);toast('Ekspor dimulai.')}
+function startGame(){$('gameArea').style.display='block';$('gameArea').scrollIntoView({behavior:'smooth',block:'start'});beginRun()}
+function closeGame(){stopRun();$('gameArea').style.display='none'}
+function clearObstacles(){obstacles.forEach(o=>o.el.remove());obstacles=[]}
+function beginRun(){stopRun();clearObstacles();score=0;lane=1;lastSpawn=0;lastTime=0;running=true;gameStartedAt=performance.now();$('score').textContent='0';$('player').style.left='calc(50% - 20px)';$('gameHelp').textContent='Hindari meteor! Ketuk sisi kiri/kanan atau gunakan tombol arah.';raf=requestAnimationFrame(loop)}
+function stopRun(){running=false;if(raf)cancelAnimationFrame(raf);raf=0}
+function movePlayer(dir){lane=Math.max(0,Math.min(2,lane+dir));const field=$('playfield');const w=field.clientWidth;const centers=[w*.17,w*.5,w*.83];$('player').style.left=(centers[lane]-20)+'px'}
+function spawnObstacle(){const el=document.createElement('div');el.className='obstacle';const col=Math.floor(Math.random()*3);const w=$('playfield').clientWidth;el.style.left=(w*[.17,.5,.83][col]-14)+'px';$('playfield').appendChild(el);obstacles.push({el,lane:col,y:-32,passed:false})}
+function endRun(){stopRun();data.played=(data.played||0)+1;data.totalScore=(data.totalScore||0)+score;if(score>data.highScore)data.highScore=score;save();$('gameHelp').textContent='Game selesai! Skor kamu '+score+'. Tekan MULAI / ULANGI untuk bermain lagi.';if(sessionStorage.getItem('hann7b_admin')==='yes')refreshAdmin();toast('Game selesai — skor '+score)}
+function loop(now){if(!running)return;if(!lastTime)lastTime=now;const dt=Math.min(40,now-lastTime);lastTime=now;const elapsed=(now-gameStartedAt)/1000;score=Math.floor(elapsed*2);$('score').textContent=score;
+ const spawnEvery=Math.max(430,1050-elapsed*12);if(now-lastSpawn>spawnEvery){spawnObstacle();lastSpawn=now}
+ const speed=150+Math.min(220,elapsed*5);
+ for(let i=obstacles.length-1;i>=0;i--){const o=obstacles[i];o.y+=speed*dt/1000;o.el.style.transform='translateY('+o.y+'px)';if(!o.passed&&o.y>($('playfield').clientHeight-80)){o.passed=true;if(o.lane===lane){o.el.remove();obstacles.splice(i,1);endRun();return}}else if(o.y>$('playfield').clientHeight+40){o.el.remove();obstacles.splice(i,1)}}
+ raf=requestAnimationFrame(loop)}
+$('playfield').addEventListener('pointerdown',e=>{const r=$('playfield').getBoundingClientRect();if(e.clientX<r.left+r.width/2)movePlayer(-1);else movePlayer(1)});
+$('loginModal').addEventListener('click',e=>{if(e.target===$('loginModal'))closeLogin()});
+$('adminModal').addEventListener('click',e=>{if(e.target===$('adminModal'))closeAdminLogin()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLogin();closeAdminLogin()}if(running&&(e.key==='ArrowLeft'||e.key==='a'))movePlayer(-1);if(running&&(e.key==='ArrowRight'||e.key==='d'))movePlayer(1)});
+$('year').textContent=new Date().getFullYear();updateUI();
+</script>
+</body>
+</html>
